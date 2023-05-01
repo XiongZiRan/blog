@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # 子应用的注册
     'users.apps.UsersConfig',
+    'articles.apps.ArticlesConfig',
+    'home.apps.HomeConfig',
+    'chatgpt.apps.ChatgptConfig',
 ]
 
 MIDDLEWARE = [
@@ -83,7 +86,7 @@ DATABASES = {
         'PORT': '3306', # 数据库端口
         'USER': 'ziran', # 数据库用户名
         'PASSWORD': '123456', # 数据库用户密码
-        'NAME': 'blog' # 数据库名字
+        'NAME': 'blog02' # 数据库名字
     },
 }
 
@@ -104,9 +107,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "zh-Hans"  # en-us
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Shanghai"  # UTC
 
 USE_I18N = True
 
@@ -185,6 +188,19 @@ LOGGING = {
             'handlers': ['console', 'file'],  # 可以同时向终端和文件输出日志
             'propagate': True,  # 是否继续传递日志信息
             'level': 'INFO',  # 日志器接收的最低日志级别
-        }
+        },
     }
 }
+
+# 替换系统的User，使用自己定义的User
+# 配置信息为'子应用名.模型类名'
+AUTH_USER_MODEL = 'users.User'
+
+# 修改未登录跳转链接
+LOGIN_URL = '/login/'
+
+# 设置上传的图片保存到media目录下
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+# 设置图片访问的统一路由
+MEDIA_URL = '/media/'

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<!-- 网站主语言 -->
+<html lang="zh-cn">
+<head>
+    <!-- 网站采用的字符编码 -->
+    <meta charset="utf-8">
+    <!-- 网站标题 -->
+    <title>首页</title>
+    {% load static %}
+    <!-- 引入bootstrap的css文件 -->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <!-- 引入monikai.css -->
+    <link rel="stylesheet" href="{% static 'md_css/monokai.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!--导入css-->
+    <link rel="stylesheet" href="{% static 'common/common.css' %}">
+    <link rel="stylesheet" href="{% static 'common/jquery.pagination.css' %}">
+    <!-- 引入vuejs -->
+    <script type="text/javascript" src="{% static 'js/vue-2.5.16.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/axios-0.18.0.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: url(/media/backgrounds/19333449.jpg) no-repeat center 0px;
+            background-size: cover;
+            background-position: center 0;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+            -moz-background-size: cover;
+            -ms-background-size: cover;
+        }
+        .navbar-brand-my {
+            display: inline-block;
+            padding-top: 0.3125rem;
+            padding-right: 2rem;
+            padding-bottom: 0.3125rem;
+            margin-right: 2rem;
+            font-size: 1.25rem;
+            line-height: inherit;
+            white-space: nowrap;
+            color: #CF6A4C;
+        }
+        .navbar-brand-my:hover, .navbar-brand-my:focus {
+            text-decoration: none;
+            color: #CF6A4C;
+        }
+    </style>
+
+{#    <script tex#}
+
+</head>
+
+<body>
+<div id="app">
+<!-- 定义导航栏 -->
+{#<nav class="navbar navbar-expand-lg navbar-dark bg-dark">#}
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+<div class="container-fluid">
+    <a class="navbar-brand text-light" href="#">Wireless</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#">GPT</a>
+{#                <a class="nav-link active" aria-current="page" href="#">Home</a>#}
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown link
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+{#    <div class="navbar bg-dark" style="border-radius: 20px">#}
+    <ul class="nav navbar-nav">
+        <!-- 如果用户已经登录，则显示用户名下拉框 -->
+        <li class="nav-item dropdown" v-if="is_login" style="width: max-content">
+            <a class="navbar-brand" href="#">
+{#                <img :src="avatar" alt="" width="30" height="30" class="d-inline-block align-text-top">#}
+                [[username]]
+            </a>
+        </li>
+        <li class="nav-item dropdown" v-if="is_login" style="width: max-content">
+            <a class="nav-link" href="{% url 'users:logout' %}">退出</a>
+        </li>
+{#            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown" style="display: block; text-align: center; margin-left: -2.5rem" v-show="show_menu">#}
+{#                <a class="dropdown-item text-light bg-dark" href="{% url 'users:writeblog' %}">写文章</a>#}
+{#                <a class="dropdown-item text-light bg-dark" href='{% url 'users:center' %}'>个人信息</a>#}
+{#                <a class="dropdown-item text-light bg-dark" href='{% url 'users:logout' %}'>退出登录</a>#}
+{#            </div>#}
+        <!-- 如果用户未登录，则显示登录按钮 -->
+        <li class="nav-item" v-else>
+            <a class="nav-link" href="{% url 'users:login' %}">登录</a>
+        </li>
+    </ul>
+{#    </div>#}
+
+
+
+</div>
+</nav>
+
+{#<nav class="navbar navbar-light bg-light">#}
+{#    <div class="container-fluid">#}
+{#        <a class="navbar-brand" href="#">#}
+{#            <img src="/media/avatar/20230429/varpowave.png" alt="" width="30" height="30" class="d-inline-block align-text-top">#}
+{#            Bootstrap#}
+{#        </a>#}
+{#    </div>#}
+{#</nav>#}
+
+{#<nav class="navbar navbar-expand-lg navbar-dark" style="padding-right: 5rem">#}
+{##}
+{#    <div class="container">#}
+{#        <!-- 导航栏商标 -->#}
+{#        <div>#}
+{#            <a class="navbar-brand-my" href="{% url 'home:index' %}">HOME</a>#}
+{#        </div>#}
+{#        <!-- 分类 -->#}
+{#        <div class="collapse navbar-collapse">#}
+{#            <div>#}
+{#                <ul class="nav navbar-nav">#}
+{#                    <li class="nav-item active">#}
+{#                        <a class="nav-link mr-2" href="{% url 'articles:index' %}">文章</a>#}
+{#                    </li>#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link mr-2" href="{% url 'articles:index' %}">xxxx</a>#}
+{#                    </li>#}
+{#                </ul>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <!--登录/个人中心-->#}
+{#    <div class="navbar bg-dark" style="border-radius: 20px">#}
+{#        <ul class="nav navbar-nav">#}
+{#            <!-- 如果用户已经登录，则显示用户名下拉框 -->#}
+{#            <li class="nav-item dropdown" v-if="is_login" style="width: max-content">#}
+{#                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @click="show_menu_click">[[username]]</a>#}
+{#                <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown" style="display: block; text-align: center; margin-left: -2.5rem" v-show="show_menu">#}
+{#                    <a class="dropdown-item text-light bg-dark" href="{% url 'users:writeblog' %}">写文章</a>#}
+{#                    <a class="dropdown-item text-light bg-dark" href='{% url 'users:center' %}'>个人信息</a>#}
+{#                    <a class="dropdown-item text-light bg-dark" href='{% url 'users:logout' %}'>退出登录</a>#}
+{#                </div>#}
+{#            </li>#}
+{#            <!-- 如果用户未登录，则显示登录按钮 -->#}
+{#            <li class="nav-item" v-else>#}
+{#                <a class="nav-link" href="{% url 'users:login' %}">登录</a>#}
+{#            </li>#}
+{#        </ul>#}
+{#    </div>#}
+{#</nav>#}
+
+
+
+
+
+<!-- content -->
+<div class="container">
+
+
+</div>
+
+{##}
+{#    <div class="bannerbox">#}
+{#        <div class="banner">#}
+{#            <img src="/media/backgrounds/19333449.jpg">#}
+{#        </div>#}
+{#    </div>#}
+
+
+
+
+<!-- Footer -->
+
+<footer class="py-3 fixed-bottom" id="footer">
+    <div class="container">
+        <h5 class="m-0 text-center text-white">Copyright @ Bear</h5>
+    </div>
+</footer>
+</div>
+
+<!-- 引入js -->
+<script type="text/javascript" src="{% static 'js/host.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/common.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.pagination.min.js' %}"></script>
+{#<script type="text/javascript">#}
+{#    $(function () {#}
+{#        $('#pagination').pagination({#}
+{#            currentPage: {{ page_num }},#}
+{#            totalPage: {{ total_page }},#}
+{#            callback:function (current) {#}
+                {# ?cat_id=&page_size=&page_num= #}
+{#                location.href = 'articles/?cat_id={{ category.id }}&page_size={{ page_size }}&page_num='+current;#}
+{#            }#}
+{#        })#}
+{#    });#}
+{#</script>#}
+</body>
+</html>

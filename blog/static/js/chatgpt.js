@@ -19,6 +19,9 @@ var vm = new Vue({
         show_menu_click:function(){
             this.show_menu = !this.show_menu ;
         },
+        on_submit(){
+
+        },
         // 生成一个图片验证码的编号，并设置页面中图片验证码img标签的src属性
         // generate_avatar_url: function () {
         //     // 设置页面中图片验证码img标签的src属性
