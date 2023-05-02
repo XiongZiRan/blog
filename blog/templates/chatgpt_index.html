@@ -12,9 +12,11 @@
         });
         $("#submit_send").click(function(){
             textarea.value = textarea.value + "User >> " + input_prompt.value + "\n";
+            input_prompt_content = input_prompt.value
+            input_prompt.value = ""
 
             $.post("{% url 'chatgpt:index' %}",{
-                prompt: input_prompt.value
+                prompt: input_prompt_content
             },
             function(res){
                 textarea.value = textarea.value + "\nGPT >> " + res['completion'] + "\n";
@@ -26,7 +28,7 @@
 {% block header_con %}
 {% endblock header_con %}
 {% block body %}
-
+<div class="container">
 <textarea type="text" name="completion" id="completion" class="input-group mb-3 bg-dark text-light"
           readonly style="border-radius: 3px" rows="25">
 </textarea>
@@ -37,7 +39,7 @@
         <button id="submit_send" class="btn btn-outline-secondary bg-dark" type="button">Send</button>
     </div>
 </div>
-
+</div>
 {#<form class="send" id="send_form">#}
 {#</form>#}
 {#<input type="button" id="btn_click" value="click">#}

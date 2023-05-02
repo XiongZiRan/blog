@@ -26,6 +26,7 @@ SECRET_KEY = "django-insecure-22kaideztph4==-9-+p(vmxz#%nn@p(96@&*@jtn-m7!s^cb+4
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -115,7 +116,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -137,6 +137,7 @@ CACHES = {
         "LOCATION": "redis://127.0.0.1:6379/0",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "":
         }
     },
     "session": {
@@ -204,3 +205,18 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # 设置图片访问的统一路由
 MEDIA_URL = '/media/'
+
+# 发送邮件配置
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# smtp服务地址
+EMAIL_HOST = 'smtp.qq.com'
+# 端口默认都是25不需要修改
+EMAIL_PORT = 25
+# 发送邮件的邮箱，需要配置开通SMTP
+EMAIL_HOST_USER = '1520996491@qq.com'
+# 在邮箱中设置的客户端授权密码
+EMAIL_HOST_PASSWORD = 'xttenslzkaragbgh'
+# 收件人看到的发件人
+EMAIL_FROM = 'Bear'
+# 这⾥必须是True，否则发送不成功
+EMAIL_USE_TLS = True

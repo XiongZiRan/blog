@@ -16,9 +16,7 @@ import logging
 logger = logging.getLogger('django')
 
 import os
-# os.environ['http_proxy'] = "http://proxy.127.0.0.1:7890"
-# os.environ['https_proxy'] = "http://proxy.127.0.0.1:7890"
-os.environ['ALL_PROXY'] = 'http://127.0.0.1:7890'
+# os.environ['ALL_PROXY'] = 'http://127.0.0.1:7890'
 
 
 # Create your views here.

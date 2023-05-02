@@ -2,7 +2,7 @@
 from django.urls import path
 
 from users.views import RegisterView, ImageCodeView, SmsCodeView, LoginView, LogoutView, \
-    ForgetPasswordView, UserCenterView, WriteBlogView
+    ForgetPasswordView, UserCenterView, WriteBlogView, EmailCodeView
 
 urlpatterns = [
     # path的第一个参数： 路由
@@ -12,8 +12,11 @@ urlpatterns = [
     # 图片验证码路由
     path('imagecode/', ImageCodeView.as_view(), name='imagecode'),
 
-    # 短息验证码路由
+    # 短信验证码路由
     path('smscode/', SmsCodeView.as_view(), name='smscode'),
+
+    # 邮件验证码路由
+    path('emailcode/', EmailCodeView.as_view(), name='emailcode'),
 
     # 登陆路由
     path('login/', LoginView.as_view(), name='login'),

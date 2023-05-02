@@ -101,7 +101,7 @@
     <ul class="nav navbar-nav">
         <!-- 如果用户已经登录，则显示用户名下拉框 -->
         <li class="nav-item dropdown" v-if="is_login" style="width: max-content">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{% url 'users:center' %}">
 {#                <img :src="avatar" alt="" width="30" height="30" class="d-inline-block align-text-top">#}
                 [[username]]
             </a>
@@ -122,18 +122,17 @@
 
 
 <!-- content -->
-<div class="container">
 {% block body %}
 
 {% endblock body %}
-</div>
 
 
 <!-- Footer -->
-</div>
 <br>
 {% block footer_con %}
 {% endblock footer_con %}
+</div>
+
 
 <!--ckeditor-->
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"
