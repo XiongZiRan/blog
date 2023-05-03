@@ -25,8 +25,8 @@ SECRET_KEY = "django-insecure-22kaideztph4==-9-+p(vmxz#%nn@p(96@&*@jtn-m7!s^cb+4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -216,7 +216,7 @@ EMAIL_PORT = 25
 # 发送邮件的邮箱，需要配置开通SMTP
 EMAIL_HOST_USER = '1520996491@qq.com'
 # 在邮箱中设置的客户端授权密码
-EMAIL_HOST_PASSWORD = 'xttenslzkaragbgh'
+EMAIL_HOST_PASSWORD = ''
 # 收件人看到的发件人
 EMAIL_FROM = 'Bear'
 # 这⾥必须是True，否则发送不成功

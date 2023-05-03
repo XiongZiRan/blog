@@ -183,13 +183,15 @@ class ImageCodeView(View):
         """
 
         uuid = request.GET.get('uuid')
-
+        print('-------------Image-Code------------')
+        print(uuid)
         if uuid is None:
             return HttpResponseBadRequest('没有传递uuid')
 
         text, image = captcha.generate_captcha()
         redis_conn = get_redis_connection('default')
         redis_conn.setex('imagecode:%s'%uuid, 300, text)
+        print(text)
 
         return HttpResponse(image, content_type='image/jepg')
 
@@ -211,21 +213,30 @@ class EmailCodeView(View):
         5.发送短信
         6.返回响应
         """
+        print('--------send-email-code-view-----------------')
         # 1.接收参数
         mobile = request.GET.get('mobile')
+        print(mobile)
         email = request.GET.get('email')
+        print(email)
         image_code = request.GET.get('image_code')
+        print(image_code)
         uuid = request.GET.get('uuid')
+        print(uuid)
+
         # 2.参数验证
         #     2.1 验证参数是否齐全
         if not all([mobile, email, image_code, uuid]):
+            print('---EMAILCODE---验证参数是否齐全')
             return JsonResponse({'code': RETCODE.NECESSARYPARAMERR, 'errmsg': '缺少必要的参数'})
         #     2.2 验证图片验证码
         #         2.2.1 链接redis，获取redis中的图片验证码
         redis_conn = get_redis_connection('default')
         redis_image_code = redis_conn.get('imagecode:%s' % uuid)
+        print('---EMAILCODE---redis_image_code: ' + redis_image_code.decode())
         #         2.2.2 判断图片验证码是否存在
         if redis_image_code is None:
+            print('---EMAILCODE---判断图片验证码是否存在')
             return JsonResponse({'code': RETCODE.IMAGECODEERR, 'errmsg': '图片验证码已过期'})
         #         2.2.3 如果未过期，获取然后删除已有图片验证码
         try:
@@ -234,11 +245,12 @@ class EmailCodeView(View):
             logger.error(e)
         #         2.2.4 比对图片验证码，注意大小写，redis数据是bytes类型
         if redis_image_code.decode().lower() != image_code.lower():
+            print('---EMAILCODE---图片验证码错误')
             return JsonResponse({'code': RETCODE.IMAGECODEERR, 'errmsg': '图片验证码错误'})
 
         # 3.生成短信验证码，为了比对方便，将短信验证码记录到日志中
         email_code = '%06d' % randint(0, 999999)
-        logger.info(email_code)
+        print(email_code)
         # 4.保存验证码到redis
         redis_conn.setex('emailcode:%s' % mobile, 300, email_code)
         # 5.发送短信
@@ -253,6 +265,7 @@ class EmailCodeView(View):
             recipient_list=[email]
         )
         if send_status:
+            logger.info('---EMAILCODE---邮件发送成功')
             return JsonResponse({'code': RETCODE.OK, 'errmsg': '邮件发送成功'})
         else:
             return HttpResponseBadRequest('测试邮件为发送成功，请检查邮箱是否正确')
@@ -427,6 +440,10 @@ class ForgetPasswordView(View):
         password = request.POST.get('password')
         password2 = request.POST.get('password2')
         emailcode = request.POST.get('email_code')
+        print(mobile)
+        print(email)
+        print(password)
+        print(emailcode)
         # 2.数据验证
         #     2.1 判断参数是否齐全
         if not all([mobile, email, password, password2, emailcode]):
